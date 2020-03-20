@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.21.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: wso2mi-hl7-demo-docker
+  name: wso2mi-hl7-demo-docker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: wso2mi-hl7-demo-docker
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.21.0 ()
+      creationTimestamp: null
+      labels:
+        io.kompose.service: wso2mi-hl7-demo-docker
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - env:
+        - name: HL7_BE_URL
+          value: hl7://host.docker.internal:9988
+        - name: HTTP_BE_URL
+          value: http://host.docker.internal:8080/patientmgt/  
+        image: registry.ingress.staging.caas.com.prt.cloudcreator.co.nz/customer-three/wso2mi-hl7-demo-docker:latest
+        imagePullPolicy: IfNotPresent
+        name: wso2mi-hl7-demo-docker
+        ports:
+        - containerPort: 8280
+        - containerPort: 9292
+        - containerPort: 8290
+        - containerPort: 20000
+        - containerPort: 9393
+        - containerPort: 9494
+        - containerPort: 9595
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "2Gi"
+          requests:
+            cpu: "100m"
+            memory: "2Gi"
+        args:
+        - -cpus
+        - "100m"
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}

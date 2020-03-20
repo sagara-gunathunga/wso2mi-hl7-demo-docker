@@ -1,0 +1,16 @@
+version: '3'
+services:
+  wso2mi-hl7-demo-docker:
+    image: "registry.ingress.staging.caas.com.prt.cloudcreator.co.nz/customer-three/wso2mi-hl7-demo-docker:latest"
+    environment:
+      - HL7_BE_URL="hl7://host.docker.internal:9988"
+      - HTTP_BE_URL="http://host.docker.internal:8080/patientmgt/"
+    ports:
+      - "8280:8280"
+      - "9292:9292"
+      - "8290:8290"
+      - "20000:20000"
+      - "9393:9393"
+      - "9494:9494"
+      - "9595:9595"    
+
